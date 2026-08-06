@@ -1,0 +1,4 @@
+# SPA fallback: /share and /settings are client routes, not files.
+# /api/* never reaches Pages — the Worker route on link-stash.{DOMAIN}/api/*
+# takes precedence within the zone.
+/*  /index.html  200

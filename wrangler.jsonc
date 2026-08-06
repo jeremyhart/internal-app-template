@@ -1,0 +1,54 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "link-stash-api",
+  "main": "src/api/index.ts",
+  "compatibility_date": "2024-12-18",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // ADR-002 / identity contract: Access on the custom hostname is not sufficient
+  // alone. The workers.dev route must be off or the Worker is directly reachable
+  // and unprotected.
+  "workers_dev": false,
+
+  // Two routes, one Worker:
+  //  - link-stash-api.{DOMAIN}  — the conventional API hostname (standards §2)
+  //  - link-stash.{DOMAIN}/api/* — same-origin path so the SPA's fetch carries
+  //    the Access cookie and an expired session yields a normal navigation
+  //    login rather than an opaque CORS failure.
+  // Both hostnames must have an Access application in front of them.
+  "routes": [
+    { "pattern": "link-stash-api.{DOMAIN}", "custom_domain": true },
+    { "pattern": "link-stash.{DOMAIN}/api/*", "zone_name": "{DOMAIN}" }
+  ],
+
+  "vars": {
+    "APP_NAME": "link-stash",
+    "ACCESS_TEAM_DOMAIN": "{TEAM}.cloudflareaccess.com",
+    "ACCESS_AUD": "{ACCESS_AUD}"
+  },
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "link-stash",
+      "database_id": "{D1_DATABASE_ID}",
+      "migrations_dir": "migrations"
+    }
+  ],
+
+  // JWKS cache + Flagship flag store (ADR-012: flags live in Workers KV).
+  "kv_namespaces": [
+    { "binding": "CACHE", "id": "{KV_CACHE_ID}" }
+  ],
+
+  // ADR-011: Workers AI first for a hosted open-source model.
+  "ai": { "binding": "AI" },
+
+  // ADR-006: retry sweep. Cron Triggers do not retry — every run writes to
+  // cron_runs so a silent failure is visible.
+  "triggers": {
+    "crons": ["*/10 * * * *"]
+  },
+
+  "observability": { "enabled": true }
+}

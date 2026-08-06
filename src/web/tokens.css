@@ -1,0 +1,57 @@
+/*
+ * Design tokens. Protected by hook (ADR-009) — components consume these, they
+ * do not introduce new values. Arbitrary one-off colours and spacings are what
+ * a design system is for preventing.
+ */
+
+:root {
+  color-scheme: light dark;
+
+  --colour-bg: #fbfbfa;
+  --colour-surface: #ffffff;
+  --colour-surface-sunken: #f3f3f1;
+  --colour-border: #e4e4e0;
+  --colour-text: #1c1c1a;
+  --colour-text-muted: #6f6f68;
+  --colour-text-faint: #9a9a92;
+  --colour-accent: #2f5d50;
+  --colour-accent-text: #ffffff;
+  --colour-danger: #a03328;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.375rem;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.06);
+
+  --layout-max: 44rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --colour-bg: #16171a;
+    --colour-surface: #1e2024;
+    --colour-surface-sunken: #26282d;
+    --colour-border: #31343a;
+    --colour-text: #ececea;
+    --colour-text-muted: #a1a29e;
+    --colour-text-faint: #74766f;
+    --colour-accent: #7fb8a5;
+    --colour-accent-text: #12211c;
+    --colour-danger: #e08376;
+  }
+}

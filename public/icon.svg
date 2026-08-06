@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Link Stash">
+  <rect width="64" height="64" rx="14" fill="#2f5d50" />
+  <path
+    d="M20 16h24a4 4 0 0 1 4 4v28l-8-6-8 6-8-6-8 6V20a4 4 0 0 1 4-4Z"
+    fill="#ffffff"
+    opacity="0.94"
+  />
+  <path d="M27 28h10M27 34h14" stroke="#2f5d50" stroke-width="3" stroke-linecap="round" />
+</svg>
